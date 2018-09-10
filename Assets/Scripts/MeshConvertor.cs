@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -57,14 +58,17 @@ namespace Assets.Scripts
 
                 oldNormals.RemoveRange(newVertices.Count - number, number);
                 oldNormals.AddRange(newNormals);
+            }
 
-//                for (int i = 0; i < newVertices.Count; i++)
-//                {
-//                    Debug.DrawRay(newVertices[i], oldNormals[i], Color.green, 100f);
-//                }
+
+            for (int i = 0; i < newVertices.Count; i++)
+            {
+                Debug.DrawRay(newVertices[i] + transform.position, oldNormals[i].normalized, Color.green, 100f);
             }
 
             mesh.normals = oldNormals.ToArray();
+
+            mesh.uv = Unwrapping.GeneratePerTriangleUV(mesh);
 
             mesh.RecalculateBounds();
             mesh.RecalculateTangents();
