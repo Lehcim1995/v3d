@@ -20,7 +20,7 @@ public class ScrollTexture : MonoBehaviour
 
     void Update()
     {
-        material.mainTextureOffset += new Vector2(0.1f * Time.deltaTime, 0);
+        material.mainTextureOffset += new Vector2(-0.1f * Time.deltaTime, 0);
         material.mainTextureOffset = new Vector2(material.mainTextureOffset.x % 2, 0);
 
         if (Input.GetKeyUp(KeyCode.A))

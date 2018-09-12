@@ -8,8 +8,7 @@ namespace Assets.Scripts
         private Vector2[] _newUv;
         private int[] _newTriangles;
 
-        [Header("Cube attributes")]
-        public float Depth = 5;
+        [Header("Cube attributes")] public float Depth = 5;
         public float Width = 5;
         public float Height = 5;
 
@@ -36,8 +35,6 @@ namespace Assets.Scripts
             _newVertices[6] = new Vector3(0, Height, Depth);
             _newVertices[7] = new Vector3(Width, Height, Depth);
 
-//        Vector3 v = new Vector3(Width / 2, Height / 2, Depth / 2);
-
             for (var i = 0; i < _newVertices.Length; i++)
             {
                 _newVertices[i] -= Center;
@@ -47,27 +44,37 @@ namespace Assets.Scripts
             {
                 // FRONT
                 0, 2, 1,
-                2, 3, 1,
+                3, 1, 2,
 
                 // BACK
-                4, 5, 6,
-                6, 5, 7,
+//                4, 5, 6,
+//                6, 5, 7,
+                6, 4, 7,
+                5, 7, 4,
 
                 //LEFT
-                1, 7, 5,
-                1, 3, 7,
+//                1, 7, 5,
+//                1, 3, 7,
+                4, 6, 0,
+                2, 0, 6,
 
                 // RIGHT
-                0, 4, 6,
-                0, 6, 2,
+//                0, 4, 6,
+//                0, 6, 2,
+                1, 3, 5,
+                7, 5, 3,
 
                 // TOP
-                3, 6, 7,
+//                3, 6, 7,
+//                2, 6, 3,
                 2, 6, 3,
+                7, 3, 6,
 
                 //BOTTOM
-                0, 1, 4,
-                5, 4, 1
+//                0, 1, 4,
+//                5, 4, 1
+                4, 0, 5,
+                1, 5, 0
             };
 
             _newUv = new Vector2[_newVertices.Length];

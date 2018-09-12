@@ -1,86 +1,102 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class DiceUvMapper : MonoBehaviour
 {
-    [SerializeField]
-    private Vector2[] uvMapp;
-
-    private Mesh mesh;
-
     private Vector2[] diceMap;
 
-	void Start ()
-	{
-	    mesh = GetComponent<MeshFilter>().mesh;
+    private Mesh mesh;
+    [SerializeField] private Vector2[] uvMapp;
 
-	    uvMapp = mesh.uv;
+    void Start()
+    {
+        mesh = GetComponent<MeshFilter>().mesh;
 
-	    var third = 1f / 3f;
-	    var twoThird = 2f / 3f;
+        uvMapp = mesh.uv;
 
-	    List<Vector2> face = new List<Vector2>
-        {
-            new Vector2(0 , 0),
-            new Vector2(0 , third),
-            new Vector2(third , 0),
+        var third = 1f / 3f;
+        var twoThird = 2f / 3f;
 
-            new Vector2(third , 0),
-            new Vector2(third , third),
-            new Vector2(0 , third),
-        };
-
-        face.ForEach(x => Debug.Log(x));
-
-	    Debug.Log("asdasd");
-
-        face.Skip(1).Concat(face.Take(1)).ToList().ForEach(x => Debug.Log(x));
-
-	    List<Vector2> list = new List<Vector2>();
+        var list = new List<Vector2>();
         //1
-        list.AddRange(face.Select(f => {
-            f.x += twoThird;
-            f.y += third;
-            return f;
-        }).ToList());
-
-        //2
-	    list.AddRange(face.Select(f => {
-	        f.x += 0;
-	        f.y += 0;
-	        return f;
-	    }).ToList());
-
-        //3
-	    list.AddRange(face.Select(f => {
-	        f.x += third;
-	        f.y += 0;
-	        return f;
-	    }).ToList());
-
-        //4
-	    list.AddRange(face.Select(f => {
-	        f.x += 0;
-	        f.y += third;
-	        return f;
-	    }).ToList());
-
-        //5
-	    list.AddRange(face.Select(f => {
-	        f.x += twoThird;
-	        f.y += 0;
-	        return f;
-	    }).ToList());
+        list.AddRange(GetFace(twoThird, third, 0, 2, flipB: true));
 
         //6
-	    list.AddRange(face.Select(f => {
-	        f.x += third;
-	        f.y += third;
-	        return f;
-	    }).ToList());
+        list.AddRange(GetFace(third, third, 0, 2, flipB: true));
 
-	    mesh.uv = list.ToArray();
-	}
+        //2
+        list.AddRange(GetFace(0, 0, 0, 2, flipB: true));
+
+        //5
+        list.AddRange(GetFace(twoThird, 0, 0, 2, flipB: true));
+
+        //3
+        list.AddRange(GetFace(third, 0, 0, 2, flipB: true));
+
+        //4
+        list.AddRange(GetFace(0, third, 0, 2, flipB: true));
+
+        mesh.uv = list.ToArray();
+    }
+
+    private List<Vector2> GetFace(Vector2 offset, int rotateA, int rotateB,
+        bool flip = false,
+        bool flipA = false,
+        bool flipB = false
+    )
+    {
+        return GetFace(offset.x, offset.y, rotateA, rotateB, flip, flipA, flipB);
+    }
+
+    private List<Vector2> GetFace(float offsetX, float offsetY, int rotateA, int rotateB,
+        bool flip = false,
+        bool flipA = false,
+        bool flipB = false
+    )
+    {
+        var third = 1f / 3f;
+
+        var faceA = new List<Vector2>
+        {
+            new Vector2(0, 0),
+            new Vector2(0, third),
+            new Vector2(third, 0)
+        };
+
+        for (var i = 0; i < rotateA; i++) faceA = faceA.Skip(1).Concat(faceA.Take(1)).ToList();
+
+        if (flipA) faceA.Reverse();
+
+        var faceB = new List<Vector2>
+        {
+            new Vector2(third, 0),
+            new Vector2(third, third),
+            new Vector2(0, third)
+        };
+
+        for (var i = 0; i < rotateB; i++) faceB = faceB.Skip(1).Concat(faceB.Take(1)).ToList();
+
+        if (flipB) faceB.Reverse();
+
+        var face = new List<Vector2>();
+
+        if (!flip)
+        {
+            face.AddRange(faceA);
+            face.AddRange(faceB);
+        }
+        else
+        {
+            face.AddRange(faceB);
+            face.AddRange(faceA);
+        }
+
+        return face.Select(f =>
+        {
+            f.x += offsetX;
+            f.y += offsetY;
+            return f;
+        }).ToList();
+    }
 }
