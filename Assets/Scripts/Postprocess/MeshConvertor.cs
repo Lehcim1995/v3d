@@ -61,10 +61,10 @@ namespace Assets.Scripts
             }
 
 
-            for (int i = 0; i < newVertices.Count; i++)
-            {
-                Debug.DrawRay(newVertices[i] + transform.position, oldNormals[i].normalized, Color.green, 100f);
-            }
+//            for (int i = 0; i < newVertices.Count; i++)
+//            {
+//                Debug.DrawRay(newVertices[i] + transform.position, oldNormals[i].normalized, Color.green, 100f);
+//            }
 
             mesh.normals = oldNormals.ToArray();
 

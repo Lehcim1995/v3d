@@ -47,32 +47,22 @@ namespace Assets.Scripts
                 3, 1, 2,
 
                 // BACK
-//                4, 5, 6,
-//                6, 5, 7,
                 6, 4, 7,
                 5, 7, 4,
 
                 //LEFT
-//                1, 7, 5,
-//                1, 3, 7,
                 4, 6, 0,
                 2, 0, 6,
 
                 // RIGHT
-//                0, 4, 6,
-//                0, 6, 2,
                 1, 3, 5,
                 7, 5, 3,
 
                 // TOP
-//                3, 6, 7,
-//                2, 6, 3,
                 2, 6, 3,
                 7, 3, 6,
 
                 //BOTTOM
-//                0, 1, 4,
-//                5, 4, 1
                 4, 0, 5,
                 1, 5, 0
             };
@@ -94,12 +84,6 @@ namespace Assets.Scripts
             mesh.RecalculateTangents();
 
             GetComponent<Renderer>().material.color = CubeColor;
-        }
-
-
-        void Update()
-        {
-//        transform.Rotate(10 * Time.deltaTime, 0, 0);
         }
     }
 }
