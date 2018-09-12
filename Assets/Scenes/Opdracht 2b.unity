@@ -1695,7 +1695,7 @@ GameObject:
   - component: {fileID: 834134621}
   - component: {fileID: 834134625}
   m_Layer: 0
-  m_Name: WallTexture
+  m_Name: WallTexture with script
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
