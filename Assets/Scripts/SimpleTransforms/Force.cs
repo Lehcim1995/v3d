@@ -14,8 +14,6 @@ public class Force : MonoBehaviour
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-
-        
     }
 
 
