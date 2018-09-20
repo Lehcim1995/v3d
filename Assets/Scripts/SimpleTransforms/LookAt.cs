@@ -10,6 +10,7 @@ namespace Assets.Scripts
         void Update ()
         {
             transform.LookAt(LookAtObject.transform);
+            
         }
     }
 }

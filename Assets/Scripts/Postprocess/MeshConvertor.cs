@@ -68,7 +68,10 @@ namespace Assets.Scripts
 
             mesh.normals = oldNormals.ToArray();
 
+#if UNITY_EDITOR
             mesh.uv = Unwrapping.GeneratePerTriangleUV(mesh);
+#else
+#endif       
 
             mesh.RecalculateBounds();
             mesh.RecalculateTangents();
